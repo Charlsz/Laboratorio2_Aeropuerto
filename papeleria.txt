@@ -1,0 +1,13 @@
+#with open('grafo_europa.txt') as f:
+#    data = f.read()
+
+# Eliminar los caracteres de salto de línea y las comillas dobles
+#data = data.replace('\n', '').replace('"', '')
+
+# Crear el diccionario
+#graph = {}
+#for item in data.split(','):
+#    city, connections = item.split(':')
+#    connections = connections.strip()[1:-1].split('),')
+#    connections = [(c.strip()[1:-1], int(d.strip())) for c, d in [x.split(',') for x in connections]]
+#    graph[city.strip()] = connections
