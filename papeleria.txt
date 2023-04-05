@@ -29,3 +29,88 @@
 #print("Budapest, Rome, Lisbon, London, Dublin, Milan, Zurich, Wasaw")
 #print("Naples, Belgrade, Sofia, Bucharest, Krakow")
 #print("---------------------------------------------------------------------")
+
+import dash
+from dash import html, dcc
+from dash.dependencies import Input, Output, State
+from funcionamiento import dijkstra, obtener_grafo
+
+#obtener el grafo
+graph = obtener_grafo()
+
+# Inicializar la aplicación
+app = dash.Dash(__name__)
+
+# Estilo de la página
+app.layout = html.Div([
+    html.H1('Rutas de vuelo más cortas en Europa'),
+    html.Div([
+        html.P('Ingrese la ciudad de origen y destino para encontrar la ruta más corta entre ellas:'),
+        dcc.Dropdown(
+            id='ciudad_origen',
+            options=[{'label': city, 'value': city} for city in graph.keys()],
+            placeholder='Ciudad de origen'
+        ),
+        dcc.Dropdown(
+            id='ciudad_destino',
+            options=[{'label': city, 'value': city} for city in graph.keys()],
+            placeholder='Ciudad de destino'
+        ),
+        html.Button('Encontrar ruta', id='submit_button')
+    ], style={'width': '50%', 'display': 'inline-block'}),
+    html.Div([
+        dcc.Graph(
+            id='ruta_mapa'
+        )
+    ], style={'width': '45%', 'display': 'inline-block', 'float': 'right'}),
+    html.Div(id='ruta_corta')
+])
+
+# Callback para encontrar la ruta más corta
+@app.callback(
+    [Output('ruta_corta', 'children'), Output('ruta_mapa', 'figure')],
+    [Input('submit_button', 'n_clicks')],
+    [State('ciudad_origen', 'value'), State('ciudad_destino', 'value')]
+)
+def encontrar_ruta(n_clicks, ciudad_origen, ciudad_destino):
+    if n_clicks:
+        if ciudad_origen and ciudad_destino:
+            distancia, ruta = dijkstra(graph, ciudad_origen, ciudad_destino)
+            ruta_str = ' -> '.join(ruta)
+            ruta_str = f'Ruta más corta: {ruta_str}. Distancia: {distancia}'
+            
+            # Crear el mapa
+            mapa = {
+                'data': [{
+                    'type': 'scattergeo',
+                    'lon': [graph[ciudad]['lon'] for ciudad in ruta],
+                    'lat': [graph[ciudad]['lat'] for ciudad in ruta],
+                    'mode': 'lines',
+                    'line': {'width': 2, 'color': 'blue'},
+                    'text': ruta,
+                    'hoverinfo': 'text'
+                }],
+                'layout': {
+                    'title': {'text': 'Ruta de vuelo más corta'},
+                    'geo': {
+                        'scope': 'europe',
+                        'projection': {'type': 'mercator'},
+                        'center': {'lon': 12.4964, 'lat': 41.9028},
+                        'zoom': 3,
+                        'showland': True,
+                        'landcolor': 'rgb(243, 243, 243)',
+                        'countrycolor': 'rgb(204, 204, 204)'
+                    }
+                }
+            }
+            
+            return ruta_str, mapa
+        
+        else:
+            return 'Debe ingresar la ciudad de origen y destino.', {}
+    
+    return '', {}
+
+# Correr la aplicación
+if __name__ == '__main__':
+    app.run_server(debug=True)
