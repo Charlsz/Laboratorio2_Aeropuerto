@@ -2,7 +2,7 @@ Madrid,Lisbon,635
 Madrid,Paris,1056
 Madrid,Barcelona,621
 Barcelona,Madrid,621 
-Barcelona,paris,831
+Barcelona,Paris,831
 Barcelona,Milan,862
 Barcelona,Lisbon,1204
 Paris,Madrid,1056
