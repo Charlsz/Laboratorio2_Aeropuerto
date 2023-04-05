@@ -19,3 +19,13 @@
 "Sofia": [("Budapest",472)],
 "Bucharest": [("Budapest",605)],
 "Krakow": [("Prague",537)]
+
+# Pedir las ciudades al usuario
+#print("Ingrese el nombre tal cual como se muestra en la pantalla")
+#print(" ")
+#print("Las ciudades son:")
+#print("---------------------------------------------------------------------")
+#print("Madrid, Barcelona, Paris, Brussels, Amsterdam, Berlin, Prague, Vienna")
+#print("Budapest, Rome, Lisbon, London, Dublin, Milan, Zurich, Wasaw")
+#print("Naples, Belgrade, Sofia, Bucharest, Krakow")
+#print("---------------------------------------------------------------------")
