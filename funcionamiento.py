@@ -1,4 +1,5 @@
 import heapq
+from collections import deque
 
 def dijkstra(graph, start, end):
     distances = {vertex: float("inf") for vertex in graph}
@@ -56,6 +57,60 @@ def obtener_grafo():
 
     return graph
 
+def bfs(graph, start):
+    """
+    Realiza un recorrido BFS (Breadth-First Search) del grafo a partir del nodo 'start'.
+
+    Parámetros:
+    - graph: el grafo representado como un diccionario de adyacencia
+    - start: el nodo de inicio para el recorrido BFS
+
+    Retorna:
+    - Una lista que contiene el recorrido BFS del grafo a partir del nodo 'start'
+    """
+    visited = set()
+    queue = deque([start])
+    while queue:
+        vertex = queue.popleft()
+        if vertex not in visited:
+            visited.add(vertex)
+            print(vertex)
+            for neighbor, _ in graph[vertex]:
+                if neighbor not in visited:
+                    queue.append(neighbor)
+
+def dfs(graph, start):
+    """
+    Realiza un recorrido DFS (Depth-First Search) del grafo a partir del nodo 'start'.
+
+    Parámetros:
+    - graph: el grafo representado como un diccionario de adyacencia
+    - start: el nodo de inicio para el recorrido DFS
+
+    Retorna:
+    - Una lista que contiene el recorrido DFS del grafo a partir del nodo 'start'
+    """
+    visited = set()
+    stack = [start]
+    while stack:
+        vertex = stack.pop()
+        if vertex not in visited:
+            visited.add(vertex)
+            print(vertex)
+            for neighbor, _ in reversed(graph[vertex]):
+                if neighbor not in visited:
+                    stack.append(neighbor)
+
+
+graph = obtener_grafo()
+
+# Realizar un recorrido BFS empezando por Madrid
+print("RECORRIDO BFS-----------------------------------")
+bfs(graph, "Madrid")
+print(" ")
+# Realizar un recorrido DFS empezando por Madrid
+print("RECORRIDO DFS-----------------------------------")
+dfs(graph, "Madrid")
 
 
 
