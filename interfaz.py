@@ -30,6 +30,8 @@ app.layout = html.Div([
     html.Div(id='output')
 ])
 
+
+
 # Definir la función que se ejecuta al hacer clic en el botón de calcular ruta
 @app.callback(
     Output('output', 'children'),

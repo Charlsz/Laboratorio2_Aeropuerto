@@ -58,16 +58,6 @@ def obtener_grafo():
     return graph
 
 def bfs(graph, start):
-    """
-    Realiza un recorrido BFS (Breadth-First Search) del grafo a partir del nodo 'start'.
-
-    Parámetros:
-    - graph: el grafo representado como un diccionario de adyacencia
-    - start: el nodo de inicio para el recorrido BFS
-
-    Retorna:
-    - Una lista que contiene el recorrido BFS del grafo a partir del nodo 'start'
-    """
     visited = set()
     queue = deque([start])
     while queue:
@@ -80,16 +70,6 @@ def bfs(graph, start):
                     queue.append(neighbor)
 
 def dfs(graph, start):
-    """
-    Realiza un recorrido DFS (Depth-First Search) del grafo a partir del nodo 'start'.
-
-    Parámetros:
-    - graph: el grafo representado como un diccionario de adyacencia
-    - start: el nodo de inicio para el recorrido DFS
-
-    Retorna:
-    - Una lista que contiene el recorrido DFS del grafo a partir del nodo 'start'
-    """
     visited = set()
     stack = [start]
     while stack:
@@ -102,16 +82,6 @@ def dfs(graph, start):
                     stack.append(neighbor)
 
 
-graph = obtener_grafo()
-
-# Realizar un recorrido BFS empezando por Madrid
-print("RECORRIDO BFS-----------------------------------")
-bfs(graph, "Madrid")
-print(" ")
-# Realizar un recorrido DFS empezando por Madrid
-print("RECORRIDO DFS-----------------------------------")
-dfs(graph, "Madrid")
-
 
 
 
@@ -123,3 +93,13 @@ dfs(graph, "Madrid")
 #distance, path = dijkstra(graph, ciudad_origen, ciudad_destino)
 #print("Distancia total:", distance)
 #print("Ruta más corta:", path)
+#print("")
+#print("")
+# Realizar un recorrido BFS empezando por Madrid
+#graph = obtener_grafo()
+#print("RECORRIDO BFS-----------------------------------")
+#bfs(graph, "Madrid")
+#print(" ")
+# Realizar un recorrido DFS empezando por Madrid
+#print("RECORRIDO DFS-----------------------------------")
+#dfs(graph, "Madrid")
